@@ -1,0 +1,2 @@
+# Arknights_Sami_Collection_Rank_Vote
+明日方舟 萨米肉鸽收藏品投票箱
