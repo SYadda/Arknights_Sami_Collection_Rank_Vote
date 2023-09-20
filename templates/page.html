@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <title>萨米肉鸽收藏品投票箱</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/compare.css') }}" />
+</head>
+
+<body onload="new_compare();">
+    <div class="bg">
+        <div class="com">
+            <table class="compare">
+                <tr>
+                    <!-- 左侧干员图片 在new_compare函数GET成功后更新 -->
+                    <td width="180px">
+                        <div class="operator-container" onclick="save_score_left()">
+                            <img id="left_png">
+                        </div>
+                        <div id="left_png_name"></div>
+                        <br>
+                        <div id="left_png_effect"></div>
+                        <br>
+                        <div id="left_png_price"></div>
+                    </td>
+
+                    <!-- 比较核心区域 -->
+                    <td>
+                        <!-- 标题 -->
+                        <h1>萨米肉鸽</h1>
+                        <h1>收藏品投票箱</h1>
+                        <div class="compare_block">
+                            <!-- 为干员投票按钮 -->
+                            <div class="vote">
+                                <input class="vote_button" type="button" value="👈👍" onclick="save_score_left()">
+                                <input class="vote_button" type="button" value="👉👍" onclick="save_score_right()">
+                            </div>
+
+                            <h4 id="toupiao_success">&nbsp;</h4>
+
+                            <!-- 部分辅助功能 -->
+                            <div class="function">
+                                <input class="skip" type="button" value="跳过，换一组" onclick="new_compare()">
+                                <input class="result" type="button" value="查看投票结果" onclick="close_or_view()">
+                                <input class="close" type="button" value="关闭投票结果" onclick="close_or_view()">
+                            </div>
+                    </td>
+
+                    <!-- 右侧干员图片 -->
+                    <td width="180px">
+                        <div class="operator-container" onclick="save_score_right()">
+                            <img id="right_png">
+                        </div>
+                        <div id="right_png_name"></div>
+                        <br>
+                        <div id="right_png_effect"></div>
+                        <br>
+                        <div id="right_png_price"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- footer部分 -->
+        <div class="footer">
+            <h2>规则：每次投票，得票+1分，未得票-1分，最后统计所有收藏品的胜率和得分，以胜率排名。</h2>
+            <h2 class="red_text">警告：数据全部来源于网友投票，结果可能存在不少谬误。</h2>
+            <h2 class="red_text">仅供娱乐，请勿用作TTK工具！</h2>
+            <h2>鸣谢：本投票两两比较的灵感来源于NGA，制作过程中得到了PRTS.wiki，血狼破军和各位群友、网友的支持和建议，在此向各位表示感谢！</h2>
+            <h3>本项目已开源至GitHub仓库：</h3>
+            <a href="https://github.com/SYadda/Arknights_6Star_Rank_Vote">
+                https://github.com/SYadda/Arknights_6Star_Rank_Vote
+            </a>
+        </div>
+
+        <div class="footer">
+            <h2>V0.1.0 目前功能还不太完善，数据量也很少，大家先随便玩玩，请多担待2333</h2>
+            <h4>作者：董杭杭, @blackwang08, @lengyanyu258</h4>
+            <h4>服务器赞助：@不会偏微分的fw</h4>
+            <br>
+            <h3>自定义聚类数目: 默认聚类的区分度为 80%（以颜色区分）若要尝试不同的聚类数目，可以在右下方的“分层数”中调整。</h3>
+        </div>
+
+        <!-- 不可见数据部分,在获取数据后展示 -->
+        <div class="final">
+            <br>
+            <h1 id="已收集数据量">&nbsp;</h1>
+            <br>
+            <table id="final_order_table" class="final_table">
+                <thead>
+                    <tr>
+                        <th>杯型</th>
+                        <th>排名</th>
+                        <th>干员代号</th>
+                        <th>胜率</th>
+                        <th>得分</th>
+                    </tr>
+                </thead>
+                <tbody id="final_order_tbody"></tbody>
+            </table>
+        </div>
+        <img id="mouse_follower" src="{{ url_for('static', filename='img/夕trans.gif') }}" alt="夕trans">
+        <div class="nclassesInput">
+            <label for="nclassesInput">分层数：</label>
+            <input id="nclassesInput" style="font-size: medium;" type="number" min="1" max="9" value="6">
+            <br>
+            <label for="GVF">区分度:</label>
+            <label id="GVF"></label>
+        </div>
+        <button id="topBtn" onclick="scrollToTop()">回到顶部</button>
+    </div>
+
+    <script type="text/javascript">
+        const DATA_DICT = JSON.parse('{{ data_dict | tojson | safe }}');
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/geostats.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/palette.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/page.js') }}"></script>
+</body>
+
+</html>
