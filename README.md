@@ -77,3 +77,5 @@
 ## 最终投票结果
 
 ![最终投票结果](./images/最终投票结果.jpeg)
+
+![analysis](./images/analysis.png)
